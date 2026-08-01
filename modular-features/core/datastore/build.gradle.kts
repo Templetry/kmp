@@ -8,6 +8,7 @@ kotlin {
         }
         androidMain.dependencies {
             implementation(libs.datastore.preferences)
+            implementation(project(":core:security"))
         }
     }
 }
