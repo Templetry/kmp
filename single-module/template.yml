@@ -1,0 +1,27 @@
+schema_version: 1
+name: kmp-single-module
+description: KMP single-module starter — Android, iOS, Desktop and Web/Wasm from one codebase
+platform: multiplatform
+framework: compose-multiplatform
+
+variables:
+  - key: project_name
+    label: Project name
+    type: string
+    pattern: "^[A-Za-z][A-Za-z0-9 ]*$"
+  - key: base_package
+    label: Base package
+    type: string
+    pattern: "^[a-z][a-z0-9]*(\\.[a-z][a-z0-9]*)+$"
+
+identity:
+  - from: "es.sebas1705.axiomnode"   # full app package (also renames dirs)
+    to: "{base_package}"
+  - from: "MultiplatformModApp"      # repo name in docs
+    to: "{project_name.pascal}"
+  - from: "es.sebas1705"             # group prefix without app suffix
+    to: "{base_package}"
+  - from: "AxiomNode"                # rootProject.name and class names
+    to: "{project_name.pascal}"
+  - from: "axiomnode"                # bare tokens (bundle ids, dirs)
+    to: "{project_name.flat}"

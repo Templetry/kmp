@@ -1,0 +1,23 @@
+schema_version: 1
+name: kmp-modular-features
+description: KMP multi-module production base — Android + Desktop + iOS, core/data/domain/feature layers, convention plugins
+platform: multiplatform
+framework: kmp
+
+variables:
+  - key: project_name
+    label: Project name
+    type: string
+    pattern: "^[A-Za-z][A-Za-z0-9 ]*$"
+  - key: base_package
+    label: Base package
+    type: string
+    pattern: "^[a-z][a-z0-9]*(\\.[a-z][a-z0-9]*)+$"
+
+identity:
+  - from: "dev.template.kmpbase"
+    to: "{base_package}"
+  - from: "KMPNativeBase"
+    to: "{project_name.pascal}"
+  - from: "kmpbase"        # plugin-id namespace, desktop storage dirs
+    to: "{project_name.flat}"

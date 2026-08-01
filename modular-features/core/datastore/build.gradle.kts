@@ -1,0 +1,13 @@
+plugins { alias(libs.plugins.kmp.core) }
+
+kotlin {
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.datastore.preferences.core)
+            implementation(libs.kotlinx.coroutines.core)
+        }
+        androidMain.dependencies {
+            implementation(libs.datastore.preferences)
+        }
+    }
+}
