@@ -1,0 +1,94 @@
+name: Verify forms
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  single-module:
+    name: single-module (${{ matrix.combo }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - combo: all-jvm-web
+            flags: ""
+            tasks: ":composeApp:compileDebugKotlinAndroid :composeApp:compileKotlinJvm :composeApp:compileKotlinJs :composeApp:compileKotlinWasmJs"
+            os: ubuntu-latest
+          - combo: all-ios
+            flags: ""
+            tasks: ":composeApp:compileKotlinIosSimulatorArm64"
+            os: macos-latest
+          - combo: android-desktop
+            flags: "--feature ios=false --feature web=false"
+            tasks: ":composeApp:compileDebugKotlinAndroid :composeApp:compileKotlinJvm"
+            os: ubuntu-latest
+          - combo: android-only
+            flags: "--feature ios=false --feature web=false --feature desktop=false"
+            tasks: ":composeApp:compileDebugKotlinAndroid"
+            os: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install templetry
+        run: |
+          os=linux; arch=amd64
+          if [ "$RUNNER_OS" = "macOS" ]; then os=darwin; arch=arm64; fi
+          curl -sL -o /usr/local/bin/templetry \
+            "https://github.com/Templetry/engine/releases/download/v0.1.0/templetry-$os-$arch"
+          chmod +x /usr/local/bin/templetry
+      - name: Render combo
+        run: |
+          templetry render --template ./single-module --out "$RUNNER_TEMP/out" \
+            --set "project_name=Verify App" --set "base_package=com.verify.app" ${{ matrix.flags }}
+          chmod +x "$RUNNER_TEMP/out/App/gradlew"
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Compile rendered output
+        working-directory: ${{ runner.temp }}/out/App
+        run: ./gradlew ${{ matrix.tasks }} --no-daemon --stacktrace
+
+  modular-features:
+    name: modular-features (${{ matrix.combo }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - combo: default
+            tasks: ":composeApp:compileDebugKotlinAndroid :composeApp:compileKotlinDesktop"
+            os: ubuntu-latest
+          - combo: default-ios
+            tasks: ":composeApp:compileKotlinIosSimulatorArm64"
+            os: macos-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install templetry
+        run: |
+          os=linux; arch=amd64
+          if [ "$RUNNER_OS" = "macOS" ]; then os=darwin; arch=arm64; fi
+          curl -sL -o /usr/local/bin/templetry \
+            "https://github.com/Templetry/engine/releases/download/v0.1.0/templetry-$os-$arch"
+          chmod +x /usr/local/bin/templetry
+      - name: Render
+        run: |
+          templetry render --template ./modular-features --out "$RUNNER_TEMP/out" \
+            --set "project_name=Verify App" --set "base_package=com.verify.app"
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.10.2"
+      - name: Compile rendered output
+        working-directory: ${{ runner.temp }}/out
+        run: gradle ${{ matrix.tasks }} --no-daemon --stacktrace
