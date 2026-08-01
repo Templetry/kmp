@@ -14,6 +14,23 @@ variables:
     type: string
     pattern: "^[a-z][a-z0-9]*(\\.[a-z][a-z0-9]*)+$"
 
+features:
+  - key: ios
+    label: iOS target
+    default: true
+    files: ["App/composeApp/src/iosMain/**"]
+  - key: desktop
+    label: Desktop (JVM) target
+    default: true
+    files: ["App/composeApp/src/jvmMain/**"]
+  - key: web
+    label: Web target (JS + Wasm)
+    default: true
+    files:
+      - "App/composeApp/src/jsMain/**"
+      - "App/composeApp/src/wasmJsMain/**"
+      - "App/composeApp/src/webMain/**"
+
 identity:
   - from: "es.sebas1705.axiomnode"   # full app package (also renames dirs)
     to: "{base_package}"

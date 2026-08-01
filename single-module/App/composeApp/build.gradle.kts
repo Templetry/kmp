@@ -1,6 +1,10 @@
+// tpl:if desktop
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+// tpl:endif
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+// tpl:if web
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+// tpl:endif
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -8,7 +12,9 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    // tpl:if desktop
     alias(libs.plugins.composeHotReload)
+    // tpl:endif
     alias(libs.plugins.sqlDelight)
     alias(libs.plugins.kotlinSerialization)
 }
@@ -29,6 +35,7 @@ kotlin {
         }
     }
     
+    // tpl:if ios
     listOf(
         iosArm64(),
         iosSimulatorArm64()
@@ -38,19 +45,24 @@ kotlin {
             isStatic = true
         }
     }
-    
+    // tpl:endif
+
+    // tpl:if desktop
     jvm()
-    
+    // tpl:endif
+
+    // tpl:if web
     js {
         browser()
         binaries.executable()
     }
-    
+
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser()
         binaries.executable()
     }
+    // tpl:endif
     
     sourceSets {
         commonMain.dependencies {
@@ -108,11 +120,14 @@ kotlin {
             // Koin dependencies:
             implementation(libs.koin.android)
         }
+        // tpl:if ios
         iosMain.dependencies {
             // Ktor dependencies:
             implementation(libs.ktor.client.darwin)
             implementation(libs.sqldelight.native.driver)
         }
+        // tpl:endif
+        // tpl:if desktop
         jvmMain.dependencies {
             // Desktop dependencies:
             implementation(compose.desktop.currentOs)
@@ -124,6 +139,8 @@ kotlin {
             // SQLDelight dependencies:
             implementation(libs.sqldelight.jvm.driver)
         }
+        // tpl:endif
+        // tpl:if web
         wasmJsMain.dependencies {
             // Ktor dependencies:
             implementation(libs.ktor.client.js)
@@ -141,6 +158,7 @@ kotlin {
             implementation(npm("@cashapp/sqldelight-sqljs-worker", "2.0.1"))
             implementation(npm("sql.js", "1.8.0"))
         }
+        // tpl:endif
     }
 }
 
@@ -175,6 +193,7 @@ dependencies {
     debugImplementation(libs.compose.uiTooling)
 }
 
+// tpl:if desktop
 compose.desktop {
     application {
         mainClass = "es.sebas1705.axiomnode.MainKt"
@@ -186,3 +205,4 @@ compose.desktop {
         }
     }
 }
+// tpl:endif
