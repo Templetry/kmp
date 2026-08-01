@@ -52,7 +52,6 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.koin.android)
-            debugImplementation(libs.leakcanary)
         }
 
         desktopMain.dependencies {
@@ -61,6 +60,10 @@ kotlin {
             implementation(libs.ktor.client.java)
         }
     }
+}
+
+dependencies {
+    debugImplementation(libs.leakcanary)
 }
 
 compose.desktop {
