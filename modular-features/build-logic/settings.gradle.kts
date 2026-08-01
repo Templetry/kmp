@@ -1,3 +1,10 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+    }
+}
+
 dependencyResolutionManagement {
     repositories {
         google()
@@ -12,3 +19,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "build-logic"
+include(":convention")
