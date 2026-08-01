@@ -1,4 +1,4 @@
-plugins { alias(libs.plugins.kmp.core) }
+﻿plugins { alias(libs.plugins.kmp.core) }
 
 kotlin {
     sourceSets {
@@ -9,7 +9,7 @@ kotlin {
             implementation(libs.security.crypto)
             implementation(libs.multiplatform.settings.no.arg)
         }
-        getByName("iosMain").dependencies {
+        iosMain.dependencies {
             implementation(libs.multiplatform.settings.no.arg)
         }
         getByName("desktopMain").dependencies {

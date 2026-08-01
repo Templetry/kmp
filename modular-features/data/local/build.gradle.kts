@@ -1,4 +1,4 @@
-plugins {
+﻿plugins {
     alias(libs.plugins.kmp.data)
     alias(libs.plugins.sqldelight)
 }
@@ -12,7 +12,7 @@ kotlin {
         }
         androidMain.dependencies  { implementation(libs.sqldelight.android.driver) }
         getByName("desktopMain").dependencies { implementation(libs.sqldelight.jvm.driver) }
-        getByName("iosMain").dependencies    { implementation(libs.sqldelight.native.driver) }
+        iosMain.dependencies    { implementation(libs.sqldelight.native.driver) }
     }
 }
 

@@ -1,4 +1,4 @@
-plugins { alias(libs.plugins.kmp.core) }
+﻿plugins { alias(libs.plugins.kmp.core) }
 
 kotlin {
     sourceSets {
@@ -9,6 +9,6 @@ kotlin {
         }
         androidMain.dependencies { implementation(libs.ktor.client.okhttp) }
         getByName("desktopMain").dependencies { implementation(libs.ktor.client.java) }
-        getByName("iosMain").dependencies { implementation(libs.ktor.client.darwin) }
+        iosMain.dependencies { implementation(libs.ktor.client.darwin) }
     }
 }
