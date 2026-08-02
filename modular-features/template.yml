@@ -17,7 +17,9 @@ variables:
 identity:
   - from: "dev.template.kmpbase"
     to: "{base_package}"
+  - from: "KMP Native Base"  # human-readable app label (strings.xml)
+    to: "{project_name}"
   - from: "KMPNativeBase"
     to: "{project_name.pascal}"
-  - from: "kmpbase"        # plugin-id namespace, desktop storage dirs
+  - from: "kmpbase"          # plugin-id namespace, desktop storage dirs
     to: "{project_name.flat}"
