@@ -1,7 +1,7 @@
 package dev.template.kmpbase.data.local
 
 import android.content.Context
-import app.cash.sqldelight.android.driver.AndroidSqliteDriver
+import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import app.cash.sqldelight.db.SqlDriver
 import dev.template.kmpbase.data.local.db.AppDatabase
 
