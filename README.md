@@ -35,4 +35,4 @@ templetry render --template ./kmp/single-module --out ./my-app \
   --feature ios=false --feature desktop=false --feature web=false
 ```
 
-`modular-features` gets its target features next. ⚠️ Compile verification of feature combos in CI is pending — treat non-default combos as beta until the parent CI lands.
+`modular-features` gets its target features next. ✅ Every form and feature combo above is compile-verified in CI: the workflow renders each combo with the released `templetry` CLI and builds the output (Android/JVM/JS/Wasm on Ubuntu, iOS on macOS).
