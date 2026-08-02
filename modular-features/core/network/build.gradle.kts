@@ -4,6 +4,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.bundles.ktor.common)
+            api(libs.ktor.client.core)
             implementation(project(":core:logging"))
             api(libs.kotlinx.serialization.json)
         }
