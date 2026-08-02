@@ -9,7 +9,11 @@ kotlin {
             api(libs.kotlinx.serialization.json)
         }
         androidMain.dependencies { implementation(libs.ktor.client.okhttp) }
+        // tpl:if desktop
         getByName("desktopMain").dependencies { implementation(libs.ktor.client.java) }
+        // tpl:endif
+        // tpl:if ios
         iosMain.dependencies { implementation(libs.ktor.client.darwin) }
+        // tpl:endif
     }
 }

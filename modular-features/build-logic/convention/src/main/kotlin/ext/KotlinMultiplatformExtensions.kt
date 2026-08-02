@@ -19,14 +19,18 @@ internal fun Project.configureKmp(
             }
         }
         // ── Desktop (JVM) ────────────────────────────────────────────────────
+        // tpl:if desktop
         jvm("desktop")
+        // tpl:endif
         // ── iOS ──────────────────────────────────────────────────────────────
+        // tpl:if ios
         listOf(iosX64(), iosArm64(), iosSimulatorArm64()).forEach { target ->
             target.binaries.framework {
                 baseName = project.name
                 isStatic = true
             }
         }
+        // tpl:endif
         // ── Common compiler options ───────────────────────────────────────────
         targets.configureEach {
             compilations.configureEach {

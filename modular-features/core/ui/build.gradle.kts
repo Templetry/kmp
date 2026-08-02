@@ -16,8 +16,10 @@ kotlin {
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
         }
+        // tpl:if desktop
         getByName("desktopMain").dependencies {
             implementation(compose.desktop.currentOs)
         }
+        // tpl:endif
     }
 }

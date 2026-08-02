@@ -18,15 +18,15 @@ templetry render --template ./kmp/modular-features --out ./my-app \
 
 Forms are **chosen**, not combined. Inside a form, the manifest's features are freely combinable.
 
-## Features of `single-module`
+## Platform features
 
-Platform targets are features — pick your platforms at render time (Android is always in):
+Platform targets are features in **both forms** — pick your platforms at render time (Android is always in):
 
-| Feature | Default | What it toggles |
-|---|---|---|
-| `ios` | on | iOS targets + `iosMain` sources + darwin/native deps |
-| `desktop` | on | JVM target + `jvmMain` sources + compose.desktop packaging + hot reload |
-| `web` | on | JS + Wasm targets + `jsMain`/`wasmJsMain`/`webMain` sources + web drivers |
+| Feature | Form(s) | Default | What it toggles |
+|---|---|---|---|
+| `ios` | both | on | iOS targets + `iosMain` sources + darwin/native deps (+ convention-plugin targets in modular-features) |
+| `desktop` | both | on | JVM target + desktop sources + compose.desktop packaging |
+| `web` | single-module | on | JS + Wasm targets + `jsMain`/`wasmJsMain`/`webMain` sources + web drivers |
 
 ```sh
 # Android-only project:
@@ -35,4 +35,4 @@ templetry render --template ./kmp/single-module --out ./my-app \
   --feature ios=false --feature desktop=false --feature web=false
 ```
 
-`modular-features` gets its target features next. ✅ Every form and feature combo above is compile-verified in CI: the workflow renders each combo with the released `templetry` CLI and builds the output (Android/JVM/JS/Wasm on Ubuntu, iOS on macOS).
+✅ Every form and feature combo above is compile-verified in CI: the workflow renders each combo with the released `templetry` CLI and builds the output (Android/JVM/JS/Wasm on Ubuntu, iOS on macOS).

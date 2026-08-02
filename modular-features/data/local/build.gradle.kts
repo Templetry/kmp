@@ -11,8 +11,12 @@ kotlin {
             implementation(project(":data:models"))
         }
         androidMain.dependencies  { implementation(libs.sqldelight.android.driver) }
+        // tpl:if desktop
         getByName("desktopMain").dependencies { implementation(libs.sqldelight.jvm.driver) }
+        // tpl:endif
+        // tpl:if ios
         iosMain.dependencies    { implementation(libs.sqldelight.native.driver) }
+        // tpl:endif
     }
 }
 

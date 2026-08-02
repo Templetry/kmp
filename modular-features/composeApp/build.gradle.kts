@@ -1,4 +1,6 @@
+// tpl:if desktop
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+// tpl:endif
 
 plugins {
     alias(libs.plugins.kmp.app)
@@ -6,7 +8,9 @@ plugins {
 
 kotlin {
     sourceSets {
+        // tpl:if desktop
         val desktopMain by getting
+        // tpl:endif
 
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -54,11 +58,13 @@ kotlin {
             implementation(libs.koin.android)
         }
 
+        // tpl:if desktop
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.ktor.client.java)
         }
+        // tpl:endif
     }
 }
 
@@ -66,6 +72,7 @@ dependencies {
     debugImplementation(libs.leakcanary)
 }
 
+// tpl:if desktop
 compose.desktop {
     application {
         mainClass = "dev.template.kmpbase.MainKt"
@@ -78,3 +85,4 @@ compose.desktop {
         }
     }
 }
+// tpl:endif

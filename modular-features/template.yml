@@ -14,6 +14,16 @@ variables:
     type: string
     pattern: "^[a-z][a-z0-9]*(\\.[a-z][a-z0-9]*)+$"
 
+features:
+  - key: ios
+    label: iOS target
+    default: true
+    files: ["**/src/iosMain/**", "iosApp/**"]
+  - key: desktop
+    label: Desktop (JVM) target
+    default: true
+    files: ["**/src/desktopMain/**"]
+
 identity:
   - from: "dev.template.kmpbase"
     to: "{base_package}"

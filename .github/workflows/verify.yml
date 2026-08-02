@@ -63,11 +63,21 @@ jobs:
       matrix:
         include:
           - combo: default
+            flags: ""
             tasks: ":composeApp:compileDebugKotlinAndroid :composeApp:compileKotlinDesktop"
             os: ubuntu-latest
           - combo: default-ios
+            flags: ""
             tasks: ":composeApp:compileKotlinIosSimulatorArm64"
             os: macos-latest
+          - combo: android-desktop
+            flags: "--feature ios=false"
+            tasks: ":composeApp:compileDebugKotlinAndroid :composeApp:compileKotlinDesktop"
+            os: ubuntu-latest
+          - combo: android-only
+            flags: "--feature ios=false --feature desktop=false"
+            tasks: ":composeApp:compileDebugKotlinAndroid"
+            os: ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -81,7 +91,7 @@ jobs:
       - name: Render
         run: |
           templetry render --template ./modular-features --out "$RUNNER_TEMP/out" \
-            --set "project_name=Verify App" --set "base_package=com.verify.app"
+            --set "project_name=Verify App" --set "base_package=com.verify.app" ${{ matrix.flags }}
       - uses: actions/setup-java@v4
         with:
           distribution: temurin

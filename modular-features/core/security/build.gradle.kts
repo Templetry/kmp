@@ -9,11 +9,15 @@ kotlin {
             implementation(libs.security.crypto)
             implementation(libs.multiplatform.settings.no.arg)
         }
+        // tpl:if ios
         iosMain.dependencies {
             implementation(libs.multiplatform.settings.no.arg)
         }
+        // tpl:endif
+        // tpl:if desktop
         getByName("desktopMain").dependencies {
             implementation(libs.multiplatform.settings.no.arg)
         }
+        // tpl:endif
     }
 }

@@ -14,8 +14,10 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.kotlinx.coroutines.android)
         }
+        // tpl:if desktop
         getByName("desktopMain").dependencies {
             implementation(libs.kotlinx.coroutines.swing)
         }
+        // tpl:endif
     }
 }
