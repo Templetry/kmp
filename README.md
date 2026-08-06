@@ -6,7 +6,7 @@ Kotlin Multiplatform templates for [Templetry](https://github.com/Templetry). On
 |---|---|---|
 | [`modular-features/`](modular-features/) | Multi-module production base — Android + Desktop + iOS, `core/data/domain/feature` layers, convention plugins | ✅ ready |
 | [`single-module/`](single-module/) | Single-module starter — Android, iOS, Desktop and Web/Wasm | ✅ ready |
-| `modular-ui/` | Multi-module base with a single `ui` layer instead of feature modules | 🏗️ planned |
+| [`modular-ui/`](modular-ui/) | Multi-module base with a single `ui` layer instead of feature modules | ✅ ready |
 
 ## Usage
 
@@ -20,12 +20,12 @@ Forms are **chosen**, not combined. Inside a form, the manifest's features are f
 
 ## Platform features
 
-Platform targets are features in **both forms** — pick your platforms at render time (Android is always in):
+Platform targets are features in **every form** — pick your platforms at render time (Android is always in):
 
 | Feature | Form(s) | Default | What it toggles |
 |---|---|---|---|
-| `ios` | both | on | iOS targets + `iosMain` sources + darwin/native deps (+ convention-plugin targets in modular-features) |
-| `desktop` | both | on | JVM target + desktop sources + compose.desktop packaging |
+| `ios` | all | on | iOS targets + `iosMain` sources + darwin/native deps (+ convention-plugin targets in the modular forms) |
+| `desktop` | all | on | JVM target + desktop sources + compose.desktop packaging |
 | `web` | single-module | on | JS + Wasm targets + `jsMain`/`wasmJsMain`/`webMain` sources + web drivers |
 
 ```sh
