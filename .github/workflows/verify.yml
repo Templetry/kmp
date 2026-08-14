@@ -40,7 +40,7 @@ jobs:
         run: |
           os=linux; arch=amd64
           if [ "$RUNNER_OS" = "macOS" ]; then os=darwin; arch=arm64; fi
-          curl -sL -o /usr/local/bin/templetry \
+          curl -fsSL -o /usr/local/bin/templetry \
             "https://github.com/Templetry/engine/releases/download/v0.1.0/templetry-$os-$arch"
           chmod +x /usr/local/bin/templetry
       - name: Render combo
@@ -86,7 +86,7 @@ jobs:
         run: |
           os=linux; arch=amd64
           if [ "$RUNNER_OS" = "macOS" ]; then os=darwin; arch=arm64; fi
-          curl -sL -o /usr/local/bin/templetry \
+          curl -fsSL -o /usr/local/bin/templetry \
             "https://github.com/Templetry/engine/releases/download/v0.1.0/templetry-$os-$arch"
           chmod +x /usr/local/bin/templetry
       - name: Render
@@ -133,7 +133,7 @@ jobs:
         run: |
           os=linux; arch=amd64
           if [ "$RUNNER_OS" = "macOS" ]; then os=darwin; arch=arm64; fi
-          curl -sL -o /usr/local/bin/templetry \
+          curl -fsSL -o /usr/local/bin/templetry \
             "https://github.com/Templetry/engine/releases/download/v0.1.0/templetry-$os-$arch"
           chmod +x /usr/local/bin/templetry
       - name: Render
