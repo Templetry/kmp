@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   pull_request:
+  schedule:
+    # Weekly, so upstream drift surfaces here and not in a user project.
+    - cron: "0 6 * * 1"
   workflow_dispatch:
 
 concurrency:
@@ -41,7 +44,7 @@ jobs:
           os=linux; arch=amd64
           if [ "$RUNNER_OS" = "macOS" ]; then os=darwin; arch=arm64; fi
           curl -fsSL -o /usr/local/bin/templetry \
-            "https://github.com/Templetry/engine/releases/download/v0.1.0/templetry-$os-$arch"
+            "https://github.com/Templetry/engine/releases/download/v1.7.0/templetry-$os-$arch"
           chmod +x /usr/local/bin/templetry
       - name: Render combo
         run: |
@@ -87,7 +90,7 @@ jobs:
           os=linux; arch=amd64
           if [ "$RUNNER_OS" = "macOS" ]; then os=darwin; arch=arm64; fi
           curl -fsSL -o /usr/local/bin/templetry \
-            "https://github.com/Templetry/engine/releases/download/v0.1.0/templetry-$os-$arch"
+            "https://github.com/Templetry/engine/releases/download/v1.7.0/templetry-$os-$arch"
           chmod +x /usr/local/bin/templetry
       - name: Render
         run: |
@@ -134,7 +137,7 @@ jobs:
           os=linux; arch=amd64
           if [ "$RUNNER_OS" = "macOS" ]; then os=darwin; arch=arm64; fi
           curl -fsSL -o /usr/local/bin/templetry \
-            "https://github.com/Templetry/engine/releases/download/v0.1.0/templetry-$os-$arch"
+            "https://github.com/Templetry/engine/releases/download/v1.7.0/templetry-$os-$arch"
           chmod +x /usr/local/bin/templetry
       - name: Render
         run: |
