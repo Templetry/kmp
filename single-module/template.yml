@@ -1,8 +1,9 @@
 schema_version: 1
 name: kmp-single-module
 description: KMP single-module starter — Android, iOS, Desktop and Web/Wasm from one codebase
-platform: multiplatform
-framework: compose-multiplatform
+kinds: [multiplatform, android, ios, desktop, frontend]
+languages: [kotlin]
+frameworks: [compose-multiplatform]
 
 variables:
   - key: project_name
