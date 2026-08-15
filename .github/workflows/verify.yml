@@ -39,13 +39,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
-      - name: Install templetry
-        run: |
-          os=linux; arch=amd64
-          if [ "$RUNNER_OS" = "macOS" ]; then os=darwin; arch=arm64; fi
-          curl -fsSL -o /usr/local/bin/templetry \
-            "https://github.com/Templetry/engine/releases/download/v1.7.0/templetry-$os-$arch"
-          chmod +x /usr/local/bin/templetry
+      - uses: Templetry/.github/actions/setup-templetry@main
       - name: Render combo
         run: |
           templetry render --template ./single-module --out "$RUNNER_TEMP/out" \
@@ -85,13 +79,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
-      - name: Install templetry
-        run: |
-          os=linux; arch=amd64
-          if [ "$RUNNER_OS" = "macOS" ]; then os=darwin; arch=arm64; fi
-          curl -fsSL -o /usr/local/bin/templetry \
-            "https://github.com/Templetry/engine/releases/download/v1.7.0/templetry-$os-$arch"
-          chmod +x /usr/local/bin/templetry
+      - uses: Templetry/.github/actions/setup-templetry@main
       - name: Render
         run: |
           templetry render --template ./modular-features --out "$RUNNER_TEMP/out" \
@@ -132,13 +120,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
-      - name: Install templetry
-        run: |
-          os=linux; arch=amd64
-          if [ "$RUNNER_OS" = "macOS" ]; then os=darwin; arch=arm64; fi
-          curl -fsSL -o /usr/local/bin/templetry \
-            "https://github.com/Templetry/engine/releases/download/v1.7.0/templetry-$os-$arch"
-          chmod +x /usr/local/bin/templetry
+      - uses: Templetry/.github/actions/setup-templetry@main
       - name: Render
         run: |
           templetry render --template ./modular-ui --out "$RUNNER_TEMP/out" \
