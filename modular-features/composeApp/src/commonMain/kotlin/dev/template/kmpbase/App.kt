@@ -24,6 +24,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import dev.template.kmpbase.core.ui.components.LoadingScreen
 import dev.template.kmpbase.core.ui.theme.AppTheme
+// tpl:if environments
+import dev.template.kmpbase.config.EnvironmentBadge
+// tpl:endif
 import dev.template.kmpbase.feature.auth.*
 import dev.template.kmpbase.feature.home.*
 import dev.template.kmpbase.feature.profile.*
@@ -47,6 +50,9 @@ private val bottomNavItems = listOf(
 @Composable
 fun App(modifier: Modifier = Modifier) {
     AppTheme(modifier) {
+        // tpl:if environments
+        EnvironmentBadge {
+        // tpl:endif
         val authVm: AuthViewModel = koinViewModel()
         val authState by authVm.uiState.collectAsStateWithLifecycle()
 
@@ -68,6 +74,9 @@ fun App(modifier: Modifier = Modifier) {
                 )
             }
         }
+        // tpl:if environments
+        }
+        // tpl:endif
     }
 }
 

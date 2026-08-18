@@ -16,6 +16,11 @@ variables:
     pattern: "^[a-z][a-z0-9]*(\\.[a-z][a-z0-9]*)+$"
 
 features:
+  - key: environments
+    label: development / staging / production profiles (ADR-0018)
+    default: true
+    files:
+      - "composeApp/src/commonMain/kotlin/dev/template/kmpbase/config/**"
   - key: ios
     label: iOS target
     default: true
