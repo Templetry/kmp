@@ -36,6 +36,13 @@ jobs:
             flags: "--feature ios=false --feature web=false --feature desktop=false"
             tasks: ":composeApp:compileDebugKotlinAndroid"
             os: ubuntu-latest
+          # One combo with the profile feature off, so a form that stopped
+          # compiling without the generated AppConfig cannot hide behind
+          # the feature being default-on.
+          - combo: no-environments
+            flags: "--feature environments=false"
+            tasks: ":composeApp:compileDebugKotlinAndroid"
+            os: ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -53,6 +60,23 @@ jobs:
       - name: Compile rendered output
         working-directory: ${{ runner.temp }}/out/App
         run: ./gradlew ${{ matrix.tasks }} --no-daemon --stacktrace
+      - name: -PappEnv selects the profile (ADR-0018)
+        if: matrix.combo == 'android-only'
+        working-directory: ${{ runner.temp }}/out/App
+        run: |
+          # Rebuild under a non-default profile and read back what the
+          # generated common object actually says. Only one combo runs
+          # this: the generation is target-agnostic by construction, so
+          # repeating it per platform would buy nothing.
+          ./gradlew :composeApp:compileDebugKotlinAndroid -PappEnv=staging --no-daemon
+          generated=$(find composeApp/build/generated/templetry -name AppConfig.kt)
+          if [ -z "$generated" ]; then
+            echo "::error::no AppConfig.kt was generated"; exit 1
+          fi
+          grep -q 'ENVIRONMENT: String = "staging"' "$generated" || {
+            echo "::error::-PappEnv=staging did not reach the generated AppConfig"
+            cat "$generated"; exit 1
+          }
 
   modular-features:
     name: modular-features (${{ matrix.combo }})
@@ -74,6 +98,13 @@ jobs:
             os: ubuntu-latest
           - combo: android-only
             flags: "--feature ios=false --feature desktop=false"
+            tasks: ":composeApp:compileDebugKotlinAndroid"
+            os: ubuntu-latest
+          # One combo with the profile feature off, so a form that stopped
+          # compiling without the generated AppConfig cannot hide behind
+          # the feature being default-on.
+          - combo: no-environments
+            flags: "--feature environments=false"
             tasks: ":composeApp:compileDebugKotlinAndroid"
             os: ubuntu-latest
     runs-on: ${{ matrix.os }}
@@ -115,6 +146,13 @@ jobs:
             os: ubuntu-latest
           - combo: android-only
             flags: "--feature ios=false --feature desktop=false"
+            tasks: ":composeApp:compileDebugKotlinAndroid"
+            os: ubuntu-latest
+          # One combo with the profile feature off, so a form that stopped
+          # compiling without the generated AppConfig cannot hide behind
+          # the feature being default-on.
+          - combo: no-environments
+            flags: "--feature environments=false"
             tasks: ":composeApp:compileDebugKotlinAndroid"
             os: ubuntu-latest
     runs-on: ${{ matrix.os }}
