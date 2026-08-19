@@ -21,7 +21,7 @@ ktor                    = "3.5.2"
 koin                    = "4.2.2"
 
 # SQLDelight (local DB – KMP native)
-sqldelight              = "2.0.2"
+sqldelight              = "2.3.2"
 
 # DataStore
 datastore               = "1.2.1"
