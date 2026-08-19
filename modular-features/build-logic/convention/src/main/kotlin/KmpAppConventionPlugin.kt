@@ -24,11 +24,11 @@ class KmpAppConventionPlugin : Plugin<Project> {
 
         extensions.configure<ApplicationExtension> {
             namespace  = "dev.template.kmpbase"
-            compileSdk = 35
+            compileSdk = 36
             defaultConfig {
                 applicationId = "dev.template.kmpbase"
                 minSdk        = 24
-                targetSdk     = 35
+                targetSdk     = 36
                 versionCode   = 1
                 versionName   = "1.0.0"
             }

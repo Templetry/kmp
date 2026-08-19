@@ -5,6 +5,7 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -14,9 +15,7 @@ internal fun Project.configureKmp(
     extensions.configure<KotlinMultiplatformExtension> {
         // ── Android ──────────────────────────────────────────────────────────
         androidTarget {
-            compilations.all {
-                kotlinOptions { jvmTarget = "17" }
-            }
+            compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }
         }
         // ── Desktop (JVM) ────────────────────────────────────────────────────
         // tpl:if desktop
@@ -44,14 +43,14 @@ internal fun Project.configureKmp(
         block()
     }
     tasks.withType<KotlinCompile>().configureEach {
-        kotlinOptions { jvmTarget = "17" }
+        compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }
     }
 }
 
 internal fun Project.configureAndroidLibrary(namespace: String) {
     extensions.configure<CommonExtension<*, *, *, *, *, *>>("android") {
         this.namespace = namespace
-        compileSdk = 35
+        compileSdk = 36
         defaultConfig { minSdk = 24 }
         compileOptions {
             sourceCompatibility = JavaVersion.VERSION_17
