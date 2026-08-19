@@ -1,48 +1,48 @@
 [versions]
-kotlin                  = "2.4.10"
-compose-multiplatform   = "1.11.1"
-agp                     = "9.3.1"
-ksp                     = "2.3.11"
+kotlin                  = "2.1.0"
+compose-multiplatform   = "1.7.3"
+agp                     = "8.7.3"
+ksp                     = "2.1.0-1.0.29"
 
 # Jetbrains
-coroutines              = "1.11.0"
-serialization           = "1.11.0"
-datetime                = "0.8.0-0.6.x-compat"
-immutable-collections   = "0.5.1"
+coroutines              = "1.9.0"
+serialization           = "1.7.3"
+datetime                = "0.6.1"
+immutable-collections   = "0.3.8"
 
 # Lifecycle / Navigation (Jetbrains AndroidX)
-lifecycle               = "2.11.0"
-navigation              = "2.9.2"
+lifecycle               = "2.8.4"
+navigation              = "2.9.1"
 
 # Ktor
-ktor                    = "3.5.2"
+ktor                    = "3.0.3"
 
 # Koin (DI – KMP native)
-koin                    = "4.2.2"
+koin                    = "4.0.0"
 
 # SQLDelight (local DB – KMP native)
-sqldelight              = "2.3.2"
+sqldelight              = "2.0.2"
 
 # DataStore
-datastore               = "1.2.1"
+datastore               = "1.1.1"
 
 # Image loading (KMP)
-coil                    = "3.5.0"
+coil                    = "3.1.0"
 
 # Logging
-kermit                  = "2.1.0"
+kermit                  = "2.0.4"
 
 # Secure/plain preferences
-multiplatform-settings  = "1.3.0"
+multiplatform-settings  = "1.2.0"
 
 # Build config
-buildkonfig             = "0.22.0"
+buildkonfig             = "0.15.2"
 
 # Quality
-detekt                  = "1.23.8"
+detekt                  = "1.23.7"
 
 # Android only
-security-crypto         = "1.1.0"
+security-crypto         = "1.1.0-alpha06"
 leakcanary              = "2.14"
 
 [libraries]
