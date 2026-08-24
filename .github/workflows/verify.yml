@@ -178,6 +178,66 @@ jobs:
         working-directory: ${{ runner.temp }}/out
         run: gradle ${{ matrix.tasks }} --no-daemon --stacktrace
 
+  library:
+    name: library (${{ matrix.combo }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - combo: default
+            flags: ""
+            tasks: "build"
+            os: ubuntu-latest
+          - combo: default-ios
+            flags: ""
+            tasks: ":compileKotlinIosSimulatorArm64"
+            os: macos-latest
+          - combo: jvm-only
+            flags: "--feature android=false --feature ios=false"
+            tasks: "build"
+            os: ubuntu-latest
+          - combo: no-serialization
+            flags: "--feature serialization=false"
+            tasks: "build"
+            os: ubuntu-latest
+          # With the profile feature off there is no generated BuildProfile, so a
+          # form that quietly started depending on it cannot hide behind the
+          # feature being default-on.
+          - combo: no-environments
+            flags: "--feature environments=false"
+            tasks: "build"
+            os: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Templetry/.github/actions/setup-templetry@main
+      - name: Render
+        run: |
+          templetry render --template ./library --out "$RUNNER_TEMP/out"             --set "project_name=Verify Lib" --set "base_package=com.verify.lib" ${{ matrix.flags }}
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.10.2"
+      - name: Compile rendered output
+        working-directory: ${{ runner.temp }}/out
+        run: gradle ${{ matrix.tasks }} --no-daemon --stacktrace
+      - name: -PlibEnv selects the profile (ADR-0018)
+        if: matrix.combo == 'jvm-only'
+        working-directory: ${{ runner.temp }}/out
+        run: |
+          gradle :compileKotlinJvm -PlibEnv=staging --no-daemon
+          generated=$(find build/generated/templetry -name BuildProfile.kt)
+          if [ -z "$generated" ]; then
+            echo "::error::no BuildProfile.kt was generated"; exit 1
+          fi
+          grep -q 'ENVIRONMENT: String = "staging"' "$generated" || {
+            echo "::error::-PlibEnv=staging did not reach the generated BuildProfile"
+            cat "$generated"; exit 1
+          }
+
   # The commands AGENTS.md hands to an agent have to be the ones this form is
   # verified with. Drift here is silent: the wrong command just runs.
   agents:

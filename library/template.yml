@@ -1,0 +1,48 @@
+schema_version: 1
+name: kmp-library
+description: KMP library — a shared Kotlin module published to Maven for Android, JVM and iOS consumers, with no UI
+kinds: [multiplatform, android, ios]
+languages: [kotlin]
+frameworks: []
+
+variables:
+  - key: project_name
+    label: Project name
+    type: string
+    pattern: "^[A-Za-z][A-Za-z0-9 ]*$"
+  - key: base_package
+    label: Base package
+    type: string
+    pattern: "^[a-z][a-z0-9]*(\\.[a-z][a-z0-9]*)+$"
+
+features:
+  - key: environments
+    label: development / staging / production profiles (ADR-0018)
+    default: true
+    files:
+      - "src/commonMain/kotlin/dev/template/kmplib/config/**"
+      - "src/commonTest/kotlin/dev/template/kmplib/config/**"
+  - key: android
+    label: Android target (adds the AGP library plugin)
+    default: true
+    files:
+      - "src/androidMain/**"
+  - key: ios
+    label: iOS targets, published as an XCFramework
+    default: true
+    files:
+      - "src/iosMain/**"
+  - key: serialization
+    label: kotlinx.serialization, for a library that carries wire types
+    default: true
+    files:
+      - "src/commonMain/kotlin/dev/template/kmplib/wire/**"
+      - "src/commonTest/kotlin/dev/template/kmplib/wire/**"
+
+identity:
+  - from: "dev.template.kmplib"
+    to: "{base_package}"
+  - from: "KMPLibrary"
+    to: "{project_name.pascal}"
+  - from: "kmplib"          # artifact id, framework base name, directory tokens
+    to: "{project_name.flat}"
