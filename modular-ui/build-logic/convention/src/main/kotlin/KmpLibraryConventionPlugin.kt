@@ -6,22 +6,23 @@ import org.gradle.kotlin.dsl.apply
 
 /**
  * Base KMP library convention.
- * Applies: kotlin.multiplatform, com.android.library, kotlin.serialization, detekt.
- * Configures: Android + Desktop + iOS targets, jvmTarget = 17, minSdk = 24.
+ * Applies: kotlin.multiplatform, com.android.kotlin.multiplatform.library, kotlin.serialization, detekt.
+ * Configures: Android + Desktop + iOS targets, jvmTarget = 17, minSdk = 24,
+ * JVM tests of Android code in `src/androidHostTest`.
  *
- * Use this on every non-app module. Specialised conventions (feature, data, etc.)
+ * Use this on every KMP module, composeApp included. Specialised conventions (feature, data, etc.)
  * build on top by applying additional plugins or adding dependencies.
  */
 class KmpLibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
         apply(plugin = "org.jetbrains.kotlin.multiplatform")
-        apply(plugin = "com.android.library")
+        apply(plugin = "com.android.kotlin.multiplatform.library")
         apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
         apply(plugin = "kmpbase.detekt")
 
         val namespace = "dev.template.kmpbase" +
             project.path.replace(":", ".").let { if (it.startsWith(".")) it else ".$it" }
-        configureAndroidLibrary(namespace)
         configureKmp()
+        configureAndroidLibrary(namespace)
     }
 }

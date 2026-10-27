@@ -16,6 +16,7 @@ dependencies {
     compileOnly(libs.plugins.compose.compiler.toDep())
     compileOnly(libs.plugins.android.application.toDep())
     compileOnly(libs.plugins.android.library.toDep())
+    compileOnly(libs.plugins.android.kmp.library.toDep())
     compileOnly(libs.plugins.sqldelight.toDep())
     compileOnly(libs.plugins.detekt.toDep())
 }
@@ -46,9 +47,9 @@ gradlePlugin {
             id = "kmpbase.kmp.core"
             implementationClass = "KmpCoreConventionPlugin"
         }
-        register("kmpApp") {
-            id = "kmpbase.kmp.app"
-            implementationClass = "KmpAppConventionPlugin"
+        register("androidApp") {
+            id = "kmpbase.android.app"
+            implementationClass = "AndroidAppConventionPlugin"
         }
         register("kmpbaseDetekt") {
             id = "kmpbase.detekt"

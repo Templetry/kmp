@@ -8,9 +8,9 @@ Inspired by [AndroidNativeBase](https://github.com/Sebas1705/AndroidNativeBase) 
 
 | Platform | Target | Entry point |
 |----------|--------|-------------|
-| Android  | `androidTarget` (minSdk 24) | `composeApp/src/androidMain/…/MainActivity.kt` |
+| Android  | KMP `android` target (minSdk 24) + `androidApp` application | `androidApp/src/main/…/MainActivity.kt` |
 | Desktop  | `jvm("desktop")` | `composeApp/src/desktopMain/…/main.kt` |
-| iOS      | `iosX64 / iosArm64 / iosSimulatorArm64` | `iosApp/iosApp/iOSApp.swift` |
+| iOS      | `iosArm64 / iosSimulatorArm64` | `iosApp/iosApp/iOSApp.swift` |
 
 ## Quick start
 
@@ -29,7 +29,7 @@ cd KMPNativeBase
 ./gradlew :composeApp:run
 
 # Assemble Android APK
-./gradlew :composeApp:assembleDebug
+./gradlew :androidApp:assembleDebug
 
 # Build iOS framework (macOS only)
 ./gradlew :composeApp:linkDebugFrameworkIosSimulatorArm64
@@ -69,7 +69,8 @@ KMPNativeBase/
 │   ├── home/       # Home screen + HomeViewModel
 │   ├── settings/   # Settings screen + SettingsViewModel
 │   └── profile/    # Profile screen + ProfileViewModel
-├── composeApp/     # Android + Desktop + iOS entry point
+├── androidApp/     # Android application (manifest, launcher resources, MainActivity)
+├── composeApp/     # Shared app (KMP library) + Desktop and iOS entry points
 └── iosApp/         # Swift wrapper (Xcode project)
 ```
 
@@ -77,19 +78,20 @@ KMPNativeBase/
 
 | Category | Library | Version |
 |----------|---------|---------|
-| UI | Compose Multiplatform | 1.7.3 |
-| DI | Koin | 4.0.0 |
-| Networking | Ktor | 3.0.3 |
-| Local DB | SQLDelight | 2.0.2 |
-| Preferences | DataStore / Multiplatform-Settings | 1.1.1 / 1.2.0 |
-| Image loading | Coil3 | 3.1.0 |
-| Logging | Kermit | 2.0.4 |
-| Navigation | androidx.navigation compose | 2.9.1 |
-| Lifecycle | androidx.lifecycle | 2.8.4 |
-| Serialization | kotlinx.serialization | 1.7.3 |
-| DateTime | kotlinx.datetime | 0.6.1 |
-| Immutable | kotlinx.collections.immutable | 0.3.8 |
-| Static analysis | Detekt | 1.23.7 |
+| Build | Kotlin / Android Gradle Plugin / Gradle | 2.4.21 / 9.4.1 / 9.8.1 |
+| UI | Compose Multiplatform | 1.12.2 |
+| DI | Koin | 4.2.2 |
+| Networking | Ktor | 3.6.0 |
+| Local DB | SQLDelight | 2.4.1 |
+| Preferences | DataStore / Multiplatform-Settings | 1.2.1 / 1.3.0 |
+| Image loading | Coil3 | 3.6.3 |
+| Logging | Kermit | 2.2.0 |
+| Navigation | androidx.navigation compose | 2.9.2 |
+| Lifecycle | androidx.lifecycle | 2.11.0 |
+| Serialization | kotlinx.serialization | 1.11.0 |
+| DateTime | kotlinx.datetime | 0.8.0 |
+| Immutable | kotlinx.collections.immutable | 0.5.2 |
+| Static analysis | Detekt | 1.23.8 |
 
 ## Quality commands
 

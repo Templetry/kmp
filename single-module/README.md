@@ -47,8 +47,8 @@ cd MultiplatformModApp/App
 
 **Android:**
 ```bash
-.\gradlew.bat :composeApp:assembleDebug   # Windows
-./gradlew :composeApp:assembleDebug       # macOS/Linux
+.\gradlew.bat :androidApp:assembleDebug   # Windows
+./gradlew :androidApp:assembleDebug       # macOS/Linux
 ```
 
 **Desktop (JVM):**
@@ -74,7 +74,8 @@ cd MultiplatformModApp/App
 
 ```
 App/
-├── composeApp/
+├── androidApp/             ← Android application: manifest, launcher icons, MainActivity
+├── composeApp/             ← Kotlin Multiplatform library with the shared app
 │   └── src/
 │       ├── commonMain/     ← shared UI and logic (all platforms)
 │       ├── androidMain/    ← Android-specific code

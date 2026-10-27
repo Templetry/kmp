@@ -9,6 +9,7 @@ Operating contract for AI agents and automation helpers working in this project.
 ## Core Rules
 
 - Everything lives in `composeApp/src/commonMain` unless the platform genuinely differs. Reach for `expect`/`actual` only when the API does not exist in common.
+- `androidApp` is only the Android application shell (manifest, launcher resources, `MainActivity`); it depends on `composeApp`, which is a KMP library. Android code shared with the app belongs in `composeApp/src/androidMain`. AGP 9 does not allow the application plugin and the KMP plugin in one module, so do not merge them back.
 - The targets are feature-gated: iOS, Desktop and Web can each be absent. Never assume a source set exists — check `build.gradle.kts` before adding to it.
 - Compose UI stays declarative and stateless where it can; hoist state rather than holding it in composables.
 - Dependencies are declared in `gradle/libs.versions.toml`, never inline in a build file.

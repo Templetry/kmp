@@ -19,7 +19,7 @@ dependencyResolutionManagement {
 }
 
 // ── App entry-points ─────────────────────────────────────────────────────────
-include(":composeApp")
+include(":androidApp", ":composeApp")
 
 // ── Core ─────────────────────────────────────────────────────────────────────
 include(

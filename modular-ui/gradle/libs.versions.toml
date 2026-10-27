@@ -1,48 +1,53 @@
 [versions]
-kotlin                  = "2.1.0"
-compose-multiplatform   = "1.7.3"
-agp                     = "8.7.3"
-ksp                     = "2.1.0-1.0.29"
+kotlin                  = "2.4.21"
+compose-multiplatform   = "1.12.2"
+agp                     = "9.4.1"
+compose-material3       = "1.9.0"
+compose-material-icons  = "1.7.3"
+activity-compose        = "1.12.4"
+ksp                     = "2.3.12"
 
 # Jetbrains
-coroutines              = "1.9.0"
-serialization           = "1.7.3"
-datetime                = "0.6.1"
-immutable-collections   = "0.3.8"
+coroutines              = "1.11.0"
+serialization           = "1.11.0"
+datetime                = "0.8.0"
+immutable-collections   = "0.5.2"
 
 # Lifecycle / Navigation (Jetbrains AndroidX)
-lifecycle               = "2.8.4"
-navigation              = "2.9.1"
+lifecycle               = "2.11.0"
+navigation              = "2.9.2"
 
 # Ktor
-ktor                    = "3.0.3"
+ktor                    = "3.6.0"
 
 # Koin (DI – KMP native)
-koin                    = "4.0.0"
+koin                    = "4.2.2"
 
 # SQLDelight (local DB – KMP native)
-sqldelight              = "2.0.2"
+sqldelight              = "2.4.1"
 
 # DataStore
-datastore               = "1.1.1"
+datastore               = "1.2.1"
 
 # Image loading (KMP)
-coil                    = "3.1.0"
+coil                    = "3.6.3"
 
 # Logging
-kermit                  = "2.0.4"
+kermit                  = "2.2.0"
 
 # Secure/plain preferences
-multiplatform-settings  = "1.2.0"
+multiplatform-settings  = "1.3.0"
 
 # Build config
-buildkonfig             = "0.15.2"
+buildkonfig             = "0.23.0"
 
 # Quality
-detekt                  = "1.23.7"
+detekt                  = "1.23.8"
+# Detekt 1.23 runs on the Kotlin it was built with; see the root build.gradle.kts.
+detekt-kotlin           = "2.0.21"
 
 # Android only
-security-crypto         = "1.1.0-alpha06"
+security-crypto         = "1.1.0-beta01"
 leakcanary              = "2.14"
 
 [libraries]
@@ -53,6 +58,17 @@ kotlinx-coroutines-swing   = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 kotlinx-datetime           = { module = "org.jetbrains.kotlinx:kotlinx-datetime",           version.ref = "datetime" }
 kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "immutable-collections" }
+
+# ── Compose Multiplatform ────────────────────────────────────────────────────
+# The plugin's `compose.runtime`-style accessors are deprecated; the artifacts
+# are declared here like any other dependency.
+compose-runtime              = { module = "org.jetbrains.compose.runtime:runtime",                   version.ref = "compose-multiplatform" }
+compose-foundation           = { module = "org.jetbrains.compose.foundation:foundation",             version.ref = "compose-multiplatform" }
+compose-ui                   = { module = "org.jetbrains.compose.ui:ui",                             version.ref = "compose-multiplatform" }
+compose-animation            = { module = "org.jetbrains.compose.animation:animation",               version.ref = "compose-multiplatform" }
+compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "compose-multiplatform" }
+compose-material3            = { module = "org.jetbrains.compose.material3:material3",               version.ref = "compose-material3" }
+compose-material-icons-core  = { module = "org.jetbrains.compose.material:material-icons-core",      version.ref = "compose-material-icons" }
 
 # ── Lifecycle / ViewModel ────────────────────────────────────────────────────
 lifecycle-viewmodel         = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel",         version.ref = "lifecycle" }
@@ -104,6 +120,7 @@ multiplatform-settings-coroutines= { module = "com.russhwolf:multiplatform-setti
 
 # ── Android ───────────────────────────────────────────────────────────────────
 security-crypto = { module = "androidx.security:security-crypto", version.ref = "security-crypto" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
 leakcanary      = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
 
 # ── Detekt ───────────────────────────────────────────────────────────────────
@@ -122,6 +139,7 @@ compose-multiplatform   = { id = "org.jetbrains.compose",                 versio
 compose-compiler        = { id = "org.jetbrains.kotlin.plugin.compose",   version.ref = "kotlin" }
 android-application     = { id = "com.android.application",               version.ref = "agp" }
 android-library         = { id = "com.android.library",                   version.ref = "agp" }
+android-kmp-library     = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 ksp                     = { id = "com.google.devtools.ksp",               version.ref = "ksp" }
 sqldelight              = { id = "app.cash.sqldelight",                   version.ref = "sqldelight" }
 buildkonfig             = { id = "com.codingfeline.buildkonfig",          version.ref = "buildkonfig" }
@@ -133,5 +151,5 @@ kmp-feature    = { id = "kmpbase.kmp.feature" }
 kmp-data       = { id = "kmpbase.kmp.data" }
 kmp-domain     = { id = "kmpbase.kmp.domain" }
 kmp-core       = { id = "kmpbase.kmp.core" }
-kmp-app        = { id = "kmpbase.kmp.app" }
+android-app    = { id = "kmpbase.android.app" }
 kmpbase-detekt = { id = "kmpbase.detekt" }

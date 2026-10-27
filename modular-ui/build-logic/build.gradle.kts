@@ -10,6 +10,7 @@ dependencies {
     compileOnly(libs.plugins.compose.compiler.toDep())
     compileOnly(libs.plugins.android.application.toDep())
     compileOnly(libs.plugins.android.library.toDep())
+    compileOnly(libs.plugins.android.kmp.library.toDep())
     compileOnly(libs.plugins.detekt.toDep())
 }
 

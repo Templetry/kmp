@@ -42,7 +42,7 @@ All screens live in the single `:ui` module, one package per screen:
 
 | Module | Platform | Entry |
 |--------|---------|-------|
-| `composeApp` | Android | `MainActivity` + `KmpApplication` |
+| `androidApp` | Android | `MainActivity` + `KmpApplication` (depends on `composeApp`) |
 | `composeApp` | Desktop | `main.kt` → `application { Window { App() } }` |
 | `composeApp` | iOS | `MainViewController` exposed to Swift |
 | `iosApp` | iOS | `ContentView.swift` wraps `MainViewController` |

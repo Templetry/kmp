@@ -26,7 +26,7 @@ jobs:
         include:
           - combo: all-jvm-web
             flags: ""
-            tasks: ":composeApp:compileDebugKotlinAndroid :composeApp:compileKotlinJvm :composeApp:compileKotlinJs :composeApp:compileKotlinWasmJs"
+            tasks: ":androidApp:assembleDebug :composeApp:compileKotlinJvm :composeApp:compileKotlinJs :composeApp:compileKotlinWasmJs"
             os: ubuntu-latest
           - combo: all-ios
             flags: ""
@@ -34,18 +34,18 @@ jobs:
             os: macos-latest
           - combo: android-desktop
             flags: "--feature ios=false --feature web=false"
-            tasks: ":composeApp:compileDebugKotlinAndroid :composeApp:compileKotlinJvm"
+            tasks: ":androidApp:assembleDebug :composeApp:compileKotlinJvm"
             os: ubuntu-latest
           - combo: android-only
             flags: "--feature ios=false --feature web=false --feature desktop=false"
-            tasks: ":composeApp:compileDebugKotlinAndroid"
+            tasks: ":androidApp:assembleDebug"
             os: ubuntu-latest
           # One combo with the profile feature off, so a form that stopped
           # compiling without the generated AppConfig cannot hide behind
           # the feature being default-on.
           - combo: no-environments
             flags: "--feature environments=false"
-            tasks: ":composeApp:compileDebugKotlinAndroid"
+            tasks: ":androidApp:assembleDebug"
             os: ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
@@ -72,7 +72,7 @@ jobs:
           # generated common object actually says. Only one combo runs
           # this: the generation is target-agnostic by construction, so
           # repeating it per platform would buy nothing.
-          ./gradlew :composeApp:compileDebugKotlinAndroid -PappEnv=staging --no-daemon
+          ./gradlew :androidApp:assembleDebug -PappEnv=staging --no-daemon
           generated=$(find composeApp/build/generated/templetry -name AppConfig.kt)
           if [ -z "$generated" ]; then
             echo "::error::no AppConfig.kt was generated"; exit 1
@@ -90,7 +90,7 @@ jobs:
         include:
           - combo: default
             flags: ""
-            tasks: ":composeApp:compileDebugKotlinAndroid :composeApp:compileKotlinDesktop"
+            tasks: ":androidApp:assembleDebug :composeApp:compileKotlinDesktop"
             os: ubuntu-latest
           - combo: default-ios
             flags: ""
@@ -98,18 +98,18 @@ jobs:
             os: macos-latest
           - combo: android-desktop
             flags: "--feature ios=false"
-            tasks: ":composeApp:compileDebugKotlinAndroid :composeApp:compileKotlinDesktop"
+            tasks: ":androidApp:assembleDebug :composeApp:compileKotlinDesktop"
             os: ubuntu-latest
           - combo: android-only
             flags: "--feature ios=false --feature desktop=false"
-            tasks: ":composeApp:compileDebugKotlinAndroid"
+            tasks: ":androidApp:assembleDebug"
             os: ubuntu-latest
           # One combo with the profile feature off, so a form that stopped
           # compiling without the generated AppConfig cannot hide behind
           # the feature being default-on.
           - combo: no-environments
             flags: "--feature environments=false"
-            tasks: ":composeApp:compileDebugKotlinAndroid"
+            tasks: ":androidApp:assembleDebug"
             os: ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
@@ -125,7 +125,7 @@ jobs:
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: "8.10.2"
+          gradle-version: "9.8.1"
       - name: Compile rendered output
         working-directory: ${{ runner.temp }}/out
         run: gradle ${{ matrix.tasks }} --no-daemon --stacktrace
@@ -138,7 +138,7 @@ jobs:
         include:
           - combo: default
             flags: ""
-            tasks: ":composeApp:compileDebugKotlinAndroid :composeApp:compileKotlinDesktop"
+            tasks: ":androidApp:assembleDebug :composeApp:compileKotlinDesktop"
             os: ubuntu-latest
           - combo: default-ios
             flags: ""
@@ -146,18 +146,18 @@ jobs:
             os: macos-latest
           - combo: android-desktop
             flags: "--feature ios=false"
-            tasks: ":composeApp:compileDebugKotlinAndroid :composeApp:compileKotlinDesktop"
+            tasks: ":androidApp:assembleDebug :composeApp:compileKotlinDesktop"
             os: ubuntu-latest
           - combo: android-only
             flags: "--feature ios=false --feature desktop=false"
-            tasks: ":composeApp:compileDebugKotlinAndroid"
+            tasks: ":androidApp:assembleDebug"
             os: ubuntu-latest
           # One combo with the profile feature off, so a form that stopped
           # compiling without the generated AppConfig cannot hide behind
           # the feature being default-on.
           - combo: no-environments
             flags: "--feature environments=false"
-            tasks: ":composeApp:compileDebugKotlinAndroid"
+            tasks: ":androidApp:assembleDebug"
             os: ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
@@ -173,7 +173,7 @@ jobs:
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: "8.10.2"
+          gradle-version: "9.8.1"
       - name: Compile rendered output
         working-directory: ${{ runner.temp }}/out
         run: gradle ${{ matrix.tasks }} --no-daemon --stacktrace
@@ -220,7 +220,7 @@ jobs:
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: "8.10.2"
+          gradle-version: "9.8.1"
       - name: Compile rendered output
         working-directory: ${{ runner.temp }}/out
         run: gradle ${{ matrix.tasks }} --no-daemon --stacktrace

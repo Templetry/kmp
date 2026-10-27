@@ -3,10 +3,10 @@ plugins { alias(libs.plugins.kmp.feature) }
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.ui)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.foundation)
+            implementation(libs.compose.material3)
+            implementation(libs.compose.ui)
             implementation(project(":core:common"))
             implementation(project(":core:ui"))
             implementation(project(":core:security"))
