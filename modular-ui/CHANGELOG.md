@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+### Changed
+- Android Gradle Plugin 9.4.1 and Gradle 9.8.1 (from 8.7.3 / 8.10.2), Kotlin 2.4.21, Compose Multiplatform 1.12.2
+  and the libraries that go with them; compileSdk 37, targetSdk 36
+- New `androidApp` module (convention `kmpbase.android.app`): the Android application with AGP 9 built-in Kotlin.
+  `composeApp` is now a KMP library; the Android build is `./gradlew :androidApp:assembleDebug`
+- Every KMP module uses `com.android.kotlin.multiplatform.library` instead of `com.android.library`; JVM tests of
+  Android code go in `src/androidHostTest` (`testAndroidHostTest`)
+- `iosX64` target removed (Compose Multiplatform no longer publishes it)
+
 ### Added
 - Initial KMPNativeBase template
 - Android + Desktop + iOS targets

@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -7,7 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     // tpl:endif
     // tpl:if android
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.android.kmp.library)
     // tpl:endif
     `maven-publish`
 }
@@ -52,9 +51,13 @@ kotlin {
     jvmToolchain(17)
 
     // tpl:if android
-    androidTarget {
-        publishLibraryVariants("release")
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    // The Android-KMP library plugin (AGP 9) publishes one Android variant, so
+    // there is no build type to pick. JVM tests of androidMain code would go in
+    // src/androidHostTest (withHostTest {}).
+    android {
+        namespace = "dev.template.kmplib"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
         compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }
     }
     // tpl:endif
@@ -96,18 +99,6 @@ kotlin {
 // that points at the wrong thing entirely.
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask<*>>().configureEach {
     dependsOn(generateLibraryConfig)
-}
-// tpl:endif
-
-// tpl:if android
-android {
-    namespace = "dev.template.kmplib"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-    defaultConfig { minSdk = libs.versions.android.minSdk.get().toInt() }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
 }
 // tpl:endif
 

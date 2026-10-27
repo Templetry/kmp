@@ -1,9 +1,9 @@
 [versions]
-kotlin = "2.1.0"
-agp = "8.7.3"
-coroutines = "1.9.0"
-serialization = "1.7.3"
-android-compileSdk = "35"
+kotlin = "2.4.21"
+agp = "9.4.1"
+coroutines = "1.11.0"
+serialization = "1.11.0"
+android-compileSdk = "36"
 android-minSdk = "24"
 
 [libraries]
@@ -14,4 +14,6 @@ kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotl
 [plugins]
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-android-library = { id = "com.android.library", version.ref = "agp" }
+# AGP 9: the Android target of a KMP module comes from this plugin; com.android.library
+# can no longer be applied next to the Kotlin Multiplatform plugin.
+android-kmp-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }

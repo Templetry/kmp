@@ -1,7 +1,6 @@
 // tpl:if desktop
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 // tpl:endif
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 // tpl:if web
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 // tpl:endif
@@ -9,7 +8,10 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidApplication)
+    // AGP 9 no longer lets com.android.application share a module with the
+    // KMP plugin: the Android target comes from the Android-KMP library
+    // plugin, and the application is the androidApp module.
+    alias(libs.plugins.androidKotlinMultiplatform)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     // tpl:if desktop
@@ -89,11 +91,22 @@ val generateAppConfig = tasks.register("generateAppConfig") {
 }
 // tpl:endif
 kotlin {
-    androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    android {
+        namespace = "es.sebas1705.axiomnode.shared"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
+        // Off by default in this plugin, but Compose Multiplatform ships this
+        // module's composeResources as Android assets, and the plugin only
+        // packages assets when Android resources are on. Without it the APK
+        // still builds, and then misses every string and drawable from Res.
+        androidResources {
+            enable = true
+        }
+        // JVM unit tests of androidMain code go in src/androidHostTest.
+        withHostTest {}
     }
     
     // tpl:if ios
@@ -178,7 +191,6 @@ kotlin {
         androidMain.dependencies {
             // Android dependencies:
             implementation(libs.compose.uiToolingPreview)
-            implementation(libs.androidx.activity.compose)
 
             // Ktor dependencies:
             implementation(libs.ktor.client.okhttp)
@@ -229,37 +241,6 @@ kotlin {
         }
         // tpl:endif
     }
-}
-
-android {
-    namespace = "es.sebas1705.axiomnode"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-    defaultConfig {
-        applicationId = "es.sebas1705.axiomnode"
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-}
-
-dependencies {
-    debugImplementation(libs.compose.uiTooling)
 }
 
 // tpl:if desktop

@@ -41,7 +41,7 @@ jobs:
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: 17 }
       - uses: gradle/actions/setup-gradle@v3
-      - run: ./gradlew :composeApp:compileDebugKotlinAndroid
+      - run: ./gradlew :androidApp:compileDebugKotlin
 
   # ── Unit tests ───────────────────────────────────────────────────────────────
   unit-tests:
@@ -68,11 +68,11 @@ jobs:
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: 17 }
       - uses: gradle/actions/setup-gradle@v3
-      - run: ./gradlew :composeApp:assembleDebug
+      - run: ./gradlew :androidApp:assembleDebug
       - uses: actions/upload-artifact@v4
         with:
           name: debug-apk
-          path: composeApp/build/outputs/apk/debug/*.apk
+          path: androidApp/build/outputs/apk/debug/*.apk
 
   # ── iOS compile (macOS) ──────────────────────────────────────────────────────
   compile-ios:

@@ -16,10 +16,10 @@ jobs:
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: 17 }
       - uses: gradle/actions/setup-gradle@v3
-      - run: ./gradlew :composeApp:assembleRelease
+      - run: ./gradlew :androidApp:assembleRelease
       - uses: softprops/action-gh-release@v2
         with:
-          files: composeApp/build/outputs/apk/release/*.apk
+          files: androidApp/build/outputs/apk/release/*.apk
           generate_release_notes: true
 
   desktop-release:

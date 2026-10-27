@@ -3,9 +3,12 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 // tpl:endif
 
 plugins {
-    alias(libs.plugins.kmp.app)
+    alias(libs.plugins.kmp.feature)
 }
 
+// composeApp is the KMP library with the shared app: root DI, navigation shell and the desktop and iOS
+// entry points. The Android application (manifest, launcher resources, Application, Activity) is
+// androidApp, which depends on this module; AGP 9 does not allow both in one module.
 
 // ── Environment profiles (ADR-0018) ──────────────────────────────────────────
 // tpl:if environments
@@ -77,17 +80,14 @@ kotlin {
             kotlin.srcDir(generateAppConfig)
         }
         // tpl:endif
-        // tpl:if desktop
-        val desktopMain by getting
-        // tpl:endif
-
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.ui)
-            implementation(compose.animation)
-            implementation(compose.components.resources)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.foundation)
+            implementation(libs.compose.material3)
+            implementation(libs.compose.material.icons.core)
+            implementation(libs.compose.ui)
+            implementation(libs.compose.animation)
+            implementation(libs.compose.components.resources)
             implementation(libs.lifecycle.viewmodel)
             implementation(libs.lifecycle.viewmodel.compose)
             implementation(libs.lifecycle.runtime.compose)
@@ -128,17 +128,13 @@ kotlin {
         }
 
         // tpl:if desktop
-        desktopMain.dependencies {
+        getByName("desktopMain").dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.ktor.client.java)
         }
         // tpl:endif
     }
-}
-
-dependencies {
-    debugImplementation(libs.leakcanary)
 }
 
 // tpl:if desktop

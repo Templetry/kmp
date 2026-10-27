@@ -81,5 +81,5 @@ See `build-logic/` — all build config is encapsulated in convention plugins to
 | `kmpbase.kmp.data` | Data modules (+ KSP) |
 | `kmpbase.kmp.domain` | Domain/use-case modules |
 | `kmpbase.kmp.core` | Core modules |
-| `kmpbase.kmp.app` | composeApp |
+| `kmpbase.android.app` | androidApp (pure Android application) |
 | `kmpbase.detekt` | Add Detekt to any module |

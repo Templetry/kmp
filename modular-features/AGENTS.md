@@ -29,8 +29,10 @@ Follow the 5-step recipe in `MODULE_MAP.md#adding-a-new-feature-module`.
 
 ## Environment
 
-- Kotlin 2.1.0 / Compose Multiplatform 1.7.3
-- Targets: `androidTarget` (minSdk 24), `jvm("desktop")`, `iosX64 + iosArm64 + iosSimulatorArm64`
+- Kotlin 2.4.21 / Compose Multiplatform 1.12.2 / Android Gradle Plugin 9.4.1 / Gradle 9.8.1
+- Targets: Android through `com.android.kotlin.multiplatform.library` (`kotlin { android { } }`, compileSdk 37, minSdk 24), `jvm("desktop")`, `iosArm64 + iosSimulatorArm64`
+- The Android application is `androidApp`: plain `com.android.application` with AGP 9 built-in Kotlin, depending on `composeApp`. AGP 9 does not allow the application plugin and the KMP plugin in one module, so never apply KMP there or `com.android.application` to a KMP module
+- JVM tests of Android code go in `src/androidHostTest` (`./gradlew testAndroidHostTest`), not `src/androidUnitTest`
 - DI: Koin 4.x (no Hilt — incompatible with KMP)
 - DB: SQLDelight 2.x (no Room — not yet fully KMP)
 
