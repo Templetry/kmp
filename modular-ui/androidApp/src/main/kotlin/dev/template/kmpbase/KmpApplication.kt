@@ -1,6 +1,8 @@
 package dev.template.kmpbase
 
 import android.app.Application
+import dev.template.kmpbase.core.security.AndroidSecureStorage
+import dev.template.kmpbase.core.security.SecureStorage
 import dev.template.kmpbase.core.security.appContext
 import dev.template.kmpbase.data.local.DatabaseDriverFactory
 import dev.template.kmpbase.di.appModule
@@ -17,7 +19,10 @@ class KmpApplication : Application() {
             androidContext(this@KmpApplication)
             modules(
                 appModule,
-                module { single { DatabaseDriverFactory(this@KmpApplication) } }
+                module {
+                    single { DatabaseDriverFactory(this@KmpApplication) }
+                    single<SecureStorage> { AndroidSecureStorage(this@KmpApplication) }
+                },
             )
         }
     }

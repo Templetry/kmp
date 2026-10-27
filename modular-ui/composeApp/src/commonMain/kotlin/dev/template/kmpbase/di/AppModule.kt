@@ -22,7 +22,8 @@ import org.koin.dsl.module
 
 val appModule = module {
     // ── Core ──────────────────────────────────────────────────────────────────
-    single { SecureStorage() }
+    // SecureStorage and DatabaseDriverFactory are platform types: each entry point
+    // (KmpApplication, main.kt, MainViewController) registers its own implementation.
     single { AppPreferences(createDataStore()) }
     single { buildHttpClient(tokenProvider = { get<SecureStorage>().getString("auth_token").ifBlank { null } }) }
 

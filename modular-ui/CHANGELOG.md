@@ -10,6 +10,12 @@
 - Every KMP module uses `com.android.kotlin.multiplatform.library` instead of `com.android.library`; JVM tests of
   Android code go in `src/androidHostTest` (`testAndroidHostTest`)
 - `iosX64` target removed (Compose Multiplatform no longer publishes it)
+- `SecureStorage` is an interface with `AndroidSecureStorage` / `DesktopSecureStorage` / `IosSecureStorage`,
+  bound in Koin by each platform entry point instead of an `expect class` built in common code
+
+### Fixed
+- `./gradlew build` compiles again: common code no longer calls the `expect class SecureStorage` constructor
+  (`compileCommonMainKotlinMetadata` failed), and `:core:testing` declares `kotlinx-coroutines-test`
 
 ### Added
 - Initial KMPNativeBase template

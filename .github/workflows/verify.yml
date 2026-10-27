@@ -88,9 +88,13 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          # The full `build` (the check AGENTS.md hands to agents): every module,
+          # including the common metadata compilation and the host tests, which the
+          # app-only task lists below never reach. One combo is enough to catch a
+          # module that stopped compiling; the others keep their narrow task lists.
           - combo: default
             flags: ""
-            tasks: ":androidApp:assembleDebug :composeApp:compileKotlinDesktop"
+            tasks: "build"
             os: ubuntu-latest
           - combo: default-ios
             flags: ""
@@ -136,9 +140,13 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          # The full `build` (the check AGENTS.md hands to agents): every module,
+          # including the common metadata compilation and the host tests, which the
+          # app-only task lists below never reach. One combo is enough to catch a
+          # module that stopped compiling; the others keep their narrow task lists.
           - combo: default
             flags: ""
-            tasks: ":androidApp:assembleDebug :composeApp:compileKotlinDesktop"
+            tasks: "build"
             os: ubuntu-latest
           - combo: default-ios
             flags: ""
