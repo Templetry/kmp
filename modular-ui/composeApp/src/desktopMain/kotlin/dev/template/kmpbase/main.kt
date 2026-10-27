@@ -4,6 +4,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import dev.template.kmpbase.core.security.DesktopSecureStorage
+import dev.template.kmpbase.core.security.SecureStorage
 import dev.template.kmpbase.data.local.DatabaseDriverFactory
 import dev.template.kmpbase.di.appModule
 import org.koin.core.context.startKoin
@@ -13,7 +15,10 @@ fun main() {
     startKoin {
         modules(
             appModule,
-            module { single { DatabaseDriverFactory() } }
+            module {
+                single { DatabaseDriverFactory() }
+                single<SecureStorage> { DesktopSecureStorage() }
+            },
         )
     }
 

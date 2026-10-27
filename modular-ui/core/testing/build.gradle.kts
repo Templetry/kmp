@@ -2,10 +2,13 @@ plugins { alias(libs.plugins.kmp.core) }
 
 kotlin {
     sourceSets {
+        // A test-support module: its public API (CoroutineTestRule) exposes these types,
+        // so consumers' test source sets get them through `api`.
         commonMain.dependencies {
-            implementation(kotlin("test"))
-            implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.koin.test)
+            api(kotlin("test"))
+            api(libs.kotlinx.coroutines.core)
+            api(libs.kotlinx.coroutines.test)
+            api(libs.koin.test)
         }
     }
 }

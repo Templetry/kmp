@@ -52,7 +52,7 @@ KMPNativeBase/
 ├── core/
 │   ├── common/     # MVI base, Result, extensions
 │   ├── ui/         # Material3 theme + shared components
-│   ├── security/   # SecureStorage (expect/actual)
+│   ├── security/   # SecureStorage (interface + platform impls)
 │   ├── network/    # Ktor client factory (expect/actual engine)
 │   ├── datastore/  # DataStore preferences (expect/actual)
 │   ├── logging/    # Kermit-based AppLogger

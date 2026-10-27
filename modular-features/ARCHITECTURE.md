@@ -47,7 +47,11 @@ Platform-specific implementations live under:
 - `desktopMain` — JVM / Java stdlib
 - `iosMain` — Kotlin/Native + Darwin/Foundation
 
-Classes with `expect`: `SecureStorage`, `DatabaseDriverFactory`, `httpEngineFactory`, `createDataStore`.
+Classes with `expect`: `DatabaseDriverFactory`, `httpEngineFactory`, `createDataStore`.
+
+`SecureStorage` is a common interface with one implementation per platform (`AndroidSecureStorage`,
+`DesktopSecureStorage`, `IosSecureStorage`). The platform entry point (`KmpApplication`, `main.kt`,
+`MainViewController`) registers it in Koin next to `DatabaseDriverFactory`; common code never constructs it.
 
 ### Dependency Injection
 [Koin 4.x](https://insert-koin.io/) — DSL-based, KMP-native, no annotation processing.

@@ -6,7 +6,7 @@
 |--------|---------|-------------|
 | `:core:common` | MVI base, Result, coroutine extensions | `MVIBaseViewModel`, `AppResult`, `safeApiCall` |
 | `:core:ui` | Material3 theme, shared components | `AppTheme`, `LoadingScreen`, `ErrorScreen` |
-| `:core:security` | Encrypted token storage | `SecureStorage` (expect/actual) |
+| `:core:security` | Encrypted token storage | `SecureStorage` (interface; platform impls bound by the entry points) |
 | `:core:network` | Ktor client factory | `buildHttpClient`, `httpEngineFactory` |
 | `:core:datastore` | DataStore preferences | `AppPreferences`, `createDataStore` |
 | `:core:logging` | Kermit-based logging | `AppLogger` |

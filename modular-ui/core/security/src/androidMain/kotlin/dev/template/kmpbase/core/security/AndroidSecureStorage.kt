@@ -6,22 +6,22 @@ import androidx.security.crypto.MasterKey
 
 lateinit var appContext: Context
 
-actual class SecureStorage {
+class AndroidSecureStorage(private val context: Context) : SecureStorage {
     private val prefs by lazy {
-        val master = MasterKey.Builder(appContext)
+        val master = MasterKey.Builder(context)
             .setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build()
         EncryptedSharedPreferences.create(
-            appContext, "secure_prefs", master,
+            context, "secure_prefs", master,
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM,
         )
     }
 
-    actual fun getString(key: String, defaultValue: String) =
+    override fun getString(key: String, defaultValue: String) =
         prefs.getString(key, defaultValue) ?: defaultValue
-    actual fun putString(key: String, value: String) =
+    override fun putString(key: String, value: String) =
         prefs.edit().putString(key, value).apply()
-    actual fun remove(key: String) = prefs.edit().remove(key).apply()
-    actual fun clear()             = prefs.edit().clear().apply()
-    actual fun hasKey(key: String) = prefs.contains(key)
+    override fun remove(key: String) = prefs.edit().remove(key).apply()
+    override fun clear()             = prefs.edit().clear().apply()
+    override fun hasKey(key: String) = prefs.contains(key)
 }
