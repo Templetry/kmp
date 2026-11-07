@@ -129,7 +129,7 @@ jobs:
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: "9.8.1"
+          gradle-version: "9.9.0"
       - name: Compile rendered output
         working-directory: ${{ runner.temp }}/out
         run: gradle ${{ matrix.tasks }} --no-daemon --stacktrace
@@ -181,7 +181,7 @@ jobs:
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: "9.8.1"
+          gradle-version: "9.9.0"
       - name: Compile rendered output
         working-directory: ${{ runner.temp }}/out
         run: gradle ${{ matrix.tasks }} --no-daemon --stacktrace
@@ -228,7 +228,7 @@ jobs:
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: "9.8.1"
+          gradle-version: "9.9.0"
       - name: Compile rendered output
         working-directory: ${{ runner.temp }}/out
         run: gradle ${{ matrix.tasks }} --no-daemon --stacktrace
